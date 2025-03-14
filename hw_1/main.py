@@ -13,13 +13,19 @@ PRIME = "prime"
 и возвращает только чётные/нечётные/простые числа
 (выбор производится передачей дополнительного аргумента)
 """
+def is_prime(s):
+    for i in range(2, s):
+        if s % i == 0:
+            return False
+            break
+    return True
 def filter_numbers(list_number:list,filter_type:str)->list:
     if filter_type==ODD:
-        return list(filter(lambda x: x % 2 != 0, list_number))
+        return list(i for i in list_number if i%2!=0)
     elif filter_type==EVEN:
-        return list(filter(lambda x: x % 2 == 0, list_number))
+        return list(i for i in list_number if i%2==0)
     elif filter_type==PRIME:
-        return list(filter(lambda s: all(s % i != 0 for i in range(2, s)),list_number))
+        return list(filter(is_prime,list_number))
     else:
         print(f'yout filter types = {filter_type} and it should be one of the "odd","even""prime"')
 print(filter_numbers([1, 2, 3], ODD))
