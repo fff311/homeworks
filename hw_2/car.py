@@ -22,15 +22,5 @@ class Car(Vehicle):
         except TypeError as t:
             return 'ошибка в типе данных'
 
-    def move(self, distance):
-        if not self.started:
-            raise ValueError("Двигатель не запущен. Запустите двигатель перед перемещением.")
-        else:
-            fuel_consumption_per_km = self.fuel_consumption / 100#расход топлева на 1 км
-            fuel_needed = fuel_consumption_per_km * distance
-            if self.fuel < fuel_needed:
-                raise NotEnoughFuel("Недостаточно топлива для движения.")
-            else:
-                self.fuel -= fuel_needed
-                return self.fuel
+
 

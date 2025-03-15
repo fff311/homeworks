@@ -20,7 +20,7 @@ class Vehicle(ABC):
         if not self.started:
             raise ValueError("Двигатель не запущен. Запустите двигатель перед перемещением.")
         else:
-            fuel_needed = self.fuel_consumption * distance
+            fuel_needed = (self.fuel_consumption * distance)/100
             if self.fuel < fuel_needed:
                 raise NotEnoughFuel("Недостаточно топлива для движения.")
             else:
