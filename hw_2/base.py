@@ -1,38 +1,29 @@
 from abc import ABC
-from hw_2 import exceptions
+from hw_2.exceptions import LowFuelError, NotEnoughFuel
 class Vehicle(ABC):
-    def __init__(self,weight, fuel, fuel_consumption):
-        self.weight=weight
-        self.fuel=fuel
-        self.fuel_consumption=fuel_consumption
-        self.started=False
+    def __init__(self, weight=1500, started=False, fuel=600, fuel_consumption=12.0):
+        self.weight = weight
+        self.fuel = fuel
+        self.fuel_consumption = fuel_consumption
+        self.started = started
+
     def start(self):
-        if not self.started:
-            try:
-                if self.fuel <= 0:
-                    raise exceptions.LowFuelError()
-                else:
-                    self.started = True
-                    return "Машина завелась"
-            except exceptions.LowFuelError as e:
-                raise e
+        if self.started:
+            raise ValueError("Двигатель уже запущен.")
+        if self.fuel <= 0:
+            raise LowFuelError("Недостаточно топлива для запуска двигателя.")
         else:
-            return "Машина уже заведена"
+            self.started = True
+            return "Машина завелась"
 
     def move(self, distance):
         if not self.started:
-            return f'машина не завелась'
+            raise ValueError("Двигатель не запущен. Запустите двигатель перед перемещением.")
         else:
             fuel_needed = self.fuel_consumption * distance
-            try:
-                if self.fuel < fuel_needed:
-                    raise exceptions.NotEnoughFuel()
-                else:
-                    self.fuel -= fuel_needed
-                    return self.fuel
-            except exceptions.NotEnoughFuel as e:
-                raise e
-
-
-
+            if self.fuel < fuel_needed:
+                raise NotEnoughFuel("Недостаточно топлива для движения.")
+            else:
+                self.fuel -= fuel_needed
+                return self.fuel
 
