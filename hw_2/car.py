@@ -3,7 +3,7 @@
 """
 from hw_2.base import Vehicle
 from hw_2.engine import Engine
-from hw_2.exceptions import LowFuelError, NotEnoughFuel
+from hw_2.exceptions import  NotEnoughFuel
 class Car(Vehicle):
     def __init__(self, **kwargs):
         engine = kwargs.pop('engine', None)

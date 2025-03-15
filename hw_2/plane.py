@@ -7,14 +7,11 @@ from hw_2 import exceptions
 
 class Plane(Vehicle):
     def __init__(self, weight, fuel, fuel_consumption, cargo, max_cargo, **kwargs):
-        # Удалить started из kwargs, если оно есть
         if 'started' in kwargs:
             del kwargs['started']
-
         super().__init__(weight, fuel, fuel_consumption, **kwargs)
         self._max_cargo = max_cargo
         self.cargo = cargo
-        # Установить started в False явно
         self.started = False
     @property
     def max_cargo(self):
